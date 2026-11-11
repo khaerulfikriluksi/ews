@@ -1,4 +1,4 @@
-# Dashboard EWS Bank Mandiri — VERSI FINAL VERCEL
+# Dashboard EWS — VERSI FINAL
 
 Desain ralat: title Dashboard EWS, header tanpa Bank Mandiri, KPI sub Semua postingan, judul chart Distribusi per Platform.
 Total 14, Positive 3, Negative 11. Periode 08-11 Nov 2026, Tarikan 11-Nov-2026 13:21:52.

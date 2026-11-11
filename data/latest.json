@@ -1,0 +1,147 @@
+{
+  "crawling_date": "11-Nov-2026 13:21:52",
+  "periode": "08-11 Nov 2026",
+  "total": 14,
+  "rows": [
+    {
+      "priority": 1,
+      "tanggal": "09-Nov-2026 16:34:42",
+      "platform": "Instagram",
+      "kategori": "Fraud",
+      "topik": "Waspada Penipuan Mengatasnamakan Mandiri Tunas Finance - peringatan resmi MTF soal penipuan catut nama Mandiri",
+      "sentimen": "Negative",
+      "url": "https://www.instagram.com/p/DfhBWwiEgY9/",
+      "react": "42 Likes"
+    },
+    {
+      "priority": 1,
+      "tanggal": "08-Nov-2026 15:38:39",
+      "platform": "Instagram",
+      "kategori": "Fraud",
+      "topik": "Edukasi anti-fraud Bank Mandiri Taspen - Pesan minta OTP tapi ngaku Mandiri = penipuan, Terasa Janggal Stop Dulu",
+      "sentimen": "Negative",
+      "url": "https://www.instagram.com/p/DfeWJaYH73N/",
+      "react": "2 Likes"
+    },
+    {
+      "priority": 1,
+      "tanggal": "09-Nov-2026 20:16:46",
+      "platform": "Facebook",
+      "kategori": "Security",
+      "topik": "Klaim ada orang lain login ke Livin milik nasabah - dugaan Account Take Over, perlu verifikasi (kasus tunggal, bukan massal)",
+      "sentimen": "Negative",
+      "url": "https://www.facebook.com/tengku.nilawana/posts/pfbid09XH9CyiRnuFg1ucq8pxQSfqAgrCUn1zJnGzamEEh15bR9JBRrbdW9PHf76uBBqWwl",
+      "react": "Unaccessible"
+    },
+    {
+      "priority": 1,
+      "tanggal": "08-Nov-2026 23:17:15",
+      "platform": "Threads",
+      "kategori": "Security",
+      "topik": "Rumor serangan siber bank Indonesia dikaitkan dengan gagal tarik tunai tanpa kartu di ATM Mandiri Nangapinoh - struk TRANSACTION DECLINED / UNABLE TO DISPENSE",
+      "sentimen": "Negative",
+      "url": "https://www.threads.com/@hengkyrandebua/post/DffKoQvE1M_",
+      "react": "Unaccessible"
+    },
+    {
+      "priority": 1,
+      "tanggal": "10-Nov-2026 17:47:11",
+      "platform": "Threads",
+      "kategori": "Fraud",
+      "topik": "Klaster joki / farming pembukaan rekening Mandiri untuk BSU - tawar buka rekening jarak jauh, iming-iming Rp45.000-Rp150.000, souvenir, panduan via DM - risiko penyalahgunaan identitas / rekening mule",
+      "sentimen": "Negative",
+      "url": "https://www.threads.com/@momomochidobbie/post/DfjucioGFr1",
+      "react": "33 Likes"
+    },
+    {
+      "priority": 1,
+      "tanggal": "08-Nov-2026 09:34:12",
+      "platform": "Facebook",
+      "kategori": "Reputational Risk",
+      "topik": "Gema kasus blokir Rp80,9 juta milik Koordinator AMPB Botok (kasus Agustus, sudah dibuka 26-Agu-2026) - video gunting kartu Mandiri + narasi netizen ramai pindahkan dana dari Livin + agenda demo AMPB di Bank Mandiri 09-Nov",
+      "sentimen": "Negative",
+      "url": "https://www.facebook.com/reel/1478584697522145/",
+      "react": "63.9K Views"
+    },
+    {
+      "priority": 2,
+      "tanggal": "11-Nov-2026 04:06:27",
+      "platform": "Facebook",
+      "kategori": "Livin",
+      "topik": "Klaster gangguan Livin massal 08-11 Nov - forced password reset, Belum berhasil terhubung Status ID 80000, Layanan tidak tersedia untuk sementara, loading stuck, transfer tidak masuk, QRIS saldo terpotong - 7+ akun berbeda di Threads/Facebook",
+      "sentimen": "Negative",
+      "url": "https://www.facebook.com/LennyMarlinaHS/posts/pfbid02c9kUHVXQoy3hK7LM1WgJ2WqLyFQ9gqiNaQP1XjmYSpRyJcekk4bTNfuF1saGxhil",
+      "react": "Unaccessible"
+    },
+    {
+      "priority": 2,
+      "tanggal": "09-Nov-2026 18:03:48",
+      "platform": "Threads",
+      "kategori": "KOPRA",
+      "topik": "KOPRA Mandiri gangguan 2 hari - login web tidak bisa, transfer di KOPRA Mobile loading terus",
+      "sentimen": "Negative",
+      "url": "https://www.threads.com/@navagia/post/DfhLjbPE4W4",
+      "react": "7 Likes"
+    },
+    {
+      "priority": 2,
+      "tanggal": "09-Nov-2026 13:59:36",
+      "platform": "Facebook",
+      "kategori": "ATM",
+      "topik": "ATM Mandiri error - kartu sudah masuk, PIN dan nominal sudah dipilih, transaksi gagal / ATM error",
+      "sentimen": "Negative",
+      "url": "https://www.facebook.com/reel/1610280993636968/",
+      "react": "78.4K Views"
+    },
+    {
+      "priority": 2,
+      "tanggal": "09-Nov-2026 14:23:23",
+      "platform": "Facebook",
+      "kategori": "Debit Card",
+      "topik": "Kartu Debit Mandiri terblokir - overlay Ups kartu terblokir di cabang, klaster dengan video kartu debit diblokir 11-Nov",
+      "sentimen": "Negative",
+      "url": "https://www.facebook.com/reel/1130189796476325/",
+      "react": "42.8K Views"
+    },
+    {
+      "priority": 3,
+      "tanggal": "10-Nov-2026 08:53:46",
+      "platform": "Threads",
+      "kategori": "Customer Service",
+      "topik": "Antrean padat di KCP Bank Mandiri Bogor Gunung Putri sebelum pukul 09.00 - lobby penuh",
+      "sentimen": "Negative",
+      "url": "https://www.threads.com/@ach.014/post/DfixZuhiS3c",
+      "react": "1.5K Views"
+    },
+    {
+      "priority": 4,
+      "tanggal": "08-Nov-2026 13:13:36",
+      "platform": "Threads",
+      "kategori": "Digital Banking",
+      "topik": "Visa Presents Livin MARKT 5-8 Nov di Senayan City - kurasi brand lokal, kuliner, travel, promo kartu Mandiri",
+      "sentimen": "Positive",
+      "url": "https://www.threads.com/@bliblidotcom/post/DfeFjDkkQM-",
+      "react": "3.9K Likes"
+    },
+    {
+      "priority": 4,
+      "tanggal": "08-Nov-2026 17:19:15",
+      "platform": "Instagram",
+      "kategori": "Livin",
+      "topik": "Promo Wingstop x Bank Mandiri 1-24 Nov 2026",
+      "sentimen": "Positive",
+      "url": "https://www.instagram.com/p/DfehoF8hOaH/",
+      "react": "3.3K Likes"
+    },
+    {
+      "priority": 4,
+      "tanggal": "09-Nov-2026 13:59:40",
+      "platform": "Instagram",
+      "kategori": "Digital Banking",
+      "topik": "Promo pembayaran Super Indo - Makin Hemat dengan promo pembayaran termasuk Bank Mandiri",
+      "sentimen": "Positive",
+      "url": "https://www.instagram.com/p/DfgvnPmk4mx/",
+      "react": "2.8K Likes"
+    }
+  ]
+}

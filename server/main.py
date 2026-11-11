@@ -18,6 +18,7 @@ SCHEMA = """
 CREATE TABLE IF NOT EXISTS crawls (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   crawling_date TEXT NOT NULL,
+  summary TEXT NOT NULL DEFAULT '[]',
   filename TEXT,
   total INTEGER NOT NULL DEFAULT 0,
   total_negative INTEGER NOT NULL DEFAULT 0,
@@ -44,7 +45,23 @@ def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
+    crawl_columns = {row["name"] for row in conn.execute("PRAGMA table_info(crawls)")}
+    if "summary" not in crawl_columns:
+        conn.execute("ALTER TABLE crawls ADD COLUMN summary TEXT NOT NULL DEFAULT '[]'")
+        conn.commit()
     return conn
+
+
+def parse_summary(value):
+    try:
+        summary = json.loads(value or "[]")
+    except (TypeError, json.JSONDecodeError):
+        return None
+    if not isinstance(summary, list) or len(summary) > 50:
+        return None
+    if any(not isinstance(item, str) or len(item) > 2000 for item in summary):
+        return None
+    return [item.strip() for item in summary if item.strip()]
 
 def split_pipe(line):
     out=[]; cur=""; inQ=False; i=0
@@ -103,18 +120,21 @@ def latest():
     cur.execute("SELECT * FROM crawls ORDER BY id DESC LIMIT 1")
     crawl=cur.fetchone()
     if not crawl:
-        return jsonify({"success":True,"crawl_id":None,"crawling_date":None,"rows":[],"message":"Belum ada crawl, pakai data embed di dashboard"})
+        return jsonify({"success":True,"crawl_id":None,"crawling_date":None,"summary":[],"rows":[],"message":"Belum ada crawl, pakai data embed di dashboard"})
     cur.execute("SELECT priority,tanggal,platform,kategori,topik,sentimen,url,react FROM posts WHERE crawl_id=?", (crawl["id"],))
     rows=[dict(r) for r in cur.fetchall()]
     conn.close()
     rows=sort_rows(rows)
-    return jsonify({"success":True,"crawl_id":crawl["id"],"crawling_date":crawl["crawling_date"],"total":crawl["total"],"rows":rows})
+    return jsonify({"success":True,"crawl_id":crawl["id"],"crawling_date":crawl["crawling_date"],"total":crawl["total"],"summary":parse_summary(crawl["summary"]),"rows":rows})
 
 @app.route("/api/ews/history")
 def history():
     conn=get_db(); cur=conn.cursor()
-    cur.execute("SELECT id,crawling_date,filename,total,total_negative,total_positive,created_at FROM crawls ORDER BY id DESC")
-    out=[dict(r) for r in cur.fetchall()]; conn.close()
+    cur.execute("SELECT id,crawling_date,filename,total,total_negative,total_positive,summary,created_at FROM crawls ORDER BY id DESC")
+    out=[dict(r) for r in cur.fetchall()]
+    for crawl in out:
+        crawl["summary"] = parse_summary(crawl["summary"])
+    conn.close()
     return jsonify({"success":True,"crawls":out})
 
 @app.route("/api/ews/history/<int:crawl_id>")
@@ -125,8 +145,11 @@ def history_detail(crawl_id):
     if not crawl:
         conn.close(); return jsonify({"success":False,"error":"Crawl tidak ditemukan"}), 404
     cur.execute("SELECT priority,tanggal,platform,kategori,topik,sentimen,url,react FROM posts WHERE crawl_id=?", (crawl_id,))
-    rows=sort_rows([dict(r) for r in cur.fetchall()]); conn.close()
-    return jsonify({"success":True,"crawl":dict(crawl),"rows":rows})
+    rows=sort_rows([dict(r) for r in cur.fetchall()])
+    crawl_data = dict(crawl)
+    crawl_data["summary"] = parse_summary(crawl_data["summary"])
+    conn.close()
+    return jsonify({"success":True,"crawl":crawl_data,"rows":rows})
 
 @app.route("/api/ews", methods=["POST"])
 def upload():
@@ -139,6 +162,9 @@ def upload():
         return jsonify({"success":False,"error":"Field file tidak ditemukan"}), 400
     f=request.files["file"]
     crawling_date=request.form.get("crawling_date","").strip() or "11-Nov-2026 13:21:52"
+    summary = parse_summary(request.form.get("summary", "[]"))
+    if summary is None:
+        return jsonify({"success":False,"error":"Field summary harus berupa JSON array berisi string (maksimal 50 item, 2000 karakter per item)"}), 400
     try:
         text=f.read().decode("utf-8-sig")
     except Exception as e:
@@ -148,7 +174,7 @@ def upload():
         return jsonify({"success":False,"error":"CSV kosong / format tidak dikenali"}), 400
     total=len(rows); neg=sum(1 for r in rows if r["sentimen"].lower()=="negative"); pos=sum(1 for r in rows if r["sentimen"].lower()=="positive")
     conn=get_db(); cur=conn.cursor()
-    cur.execute("INSERT INTO crawls (crawling_date,filename,total,total_negative,total_positive) VALUES (?,?,?,?,?)", (crawling_date, f.filename, total, neg, pos))
+    cur.execute("INSERT INTO crawls (crawling_date,summary,filename,total,total_negative,total_positive) VALUES (?,?,?,?,?,?)", (crawling_date, json.dumps(summary, ensure_ascii=False), f.filename, total, neg, pos))
     crawl_id=cur.lastrowid
     for r in rows:
         cur.execute("INSERT INTO posts (crawl_id,priority,tanggal,platform,kategori,topik,sentimen,url,react) VALUES (?,?,?,?,?,?,?,?,?)", (crawl_id, r["priority"], r["tanggal"], r["platform"], r["kategori"], r["topik"], r["sentimen"], r["url"], r["react"]))
@@ -158,10 +184,10 @@ def upload():
         if not os.environ.get("VERCEL"):
             os.makedirs(os.path.join(BASE,"data"), exist_ok=True)
             with open(os.path.join(BASE,"data","latest.json"),"w",encoding="utf-8") as fh:
-                json.dump({"crawling_date":crawling_date,"total":total,"rows":rows}, fh, ensure_ascii=False, indent=2)
+                json.dump({"crawling_date":crawling_date,"summary":summary,"total":total,"rows":rows}, fh, ensure_ascii=False, indent=2)
     except Exception:
         pass
-    return jsonify({"success":True,"crawl_id":crawl_id,"crawling_date":crawling_date,"total":total,"total_negative":neg,"total_positive":pos,"rows":rows})
+    return jsonify({"success":True,"crawl_id":crawl_id,"crawling_date":crawling_date,"summary":summary,"total":total,"total_negative":neg,"total_positive":pos,"rows":rows})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)), debug=False)

@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS crawls (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   crawling_date TEXT NOT NULL,
+  summary TEXT NOT NULL DEFAULT '[]',
   filename TEXT,
   total INTEGER NOT NULL DEFAULT 0,
   total_negative INTEGER NOT NULL DEFAULT 0,
